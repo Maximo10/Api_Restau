@@ -37,21 +37,37 @@ app.use((req, res, next) => {
     next();
 });
 // Ruta para obtener los pedidos,mesas y menus
-app.get('/api/info_restaurante',async (req, res) => {
+app.get('/api/pedidos',async (req, res) => {
     try {
-        const { pedidos,mesas,menus } = await connectToMongoDB();
+        const { pedidos } = await connectToMongoDB();
         const lis_pedidos = await pedidos.find().toArray();
-        const lis_mesas = await mesas.find().toArray();
-        const lis_menus = await menus.find().toArray()
-        console.log("pedidos: "+lis_pedidos+"\n mesas: "+lis_mesas+"\n menus: "+lis_menus);
-        res.json({
-            pedidos: lis_pedidos,
-            mesas: lis_mesas,
-            menus: lis_menus
-        });
+        console.log("pedidos: ",lis_pedidos);
+        res.json("Lista de Pedidos",lis_pedidos);
     } catch (error) {
         console.error("Error al obtener empleados:", error);
         res.status(500).json({ error: 'Error al obtener empleados' });    
+    }
+});
+app.get('/api/mesas',async (req,res)=>{
+    try{
+        const{mesas}=await connectToMongoDB();
+        const lis_mesas = await mesas.find().toArray();
+        console.log("Lista de mesas:",lis_mesas);
+        res.json(lis_mesas);
+    }catch(error){
+        console.error("Error al obtener empleados:", error);
+        res.status(500).json({ error: 'Error al obtener empleados' });   
+    }
+});
+app.get('/api/menus',async (req,res)=>{
+    try{
+        const{menus}=await connectToMongoDB();
+        const lis_menus = await menus.find().toArray()
+        console.log("Lista de mesas:",lis_menus);
+        res.json(lis_menus);
+    }catch(error){
+        console.error("Error al obtener empleados:", error);
+        res.status(500).json({ error: 'Error al obtener empleados' });   
     }
 });
 module.exports = app;
