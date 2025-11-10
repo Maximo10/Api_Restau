@@ -4,7 +4,7 @@ const app = express();
 app.use(express.json());
 
 // Configura la conexión a MongoDB
-const uri = "mongodb+srv://bferfer:<db_contraseña>@cluster0.tgbjhs7.mongodb.net/Ficha_RH?retryWrites=true&w=majority";
+const uri = "mongodb+srv://bferfer:QZ1zBVzYrZilu6d4@cluster0.tgbjhs7.mongodb.net/?appName=Cluster0";
 const client = new MongoClient(uri, {
     serverApi: {
         version: ServerApiVersion.v1,
